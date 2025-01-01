@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Print a message
+      # Step 1: Print a messages
       - name: Say Hello
         run: echo "Hello, World! Enjoy 2025"
 
