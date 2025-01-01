@@ -9,50 +9,28 @@
     <link rel="icon" type="image/svg+xml" href="/favi/favicon.svg" />
     <link rel="shortcut icon" href="/favi/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favi/apple-touch-icon.png" />
+
     <link rel="manifest" href="/favi/site.webmanifest" />
   </head>
   <body>
-    <div
-      :class="{'w-72': Alpine.tabStore.sideBar, 'w-16': !Alpine.tabStore.sideBar}"
-      class="h-screen bg-vlp transition-all duration-500 dark:bg-vdp"
-      x-ref="mainSidebar"
-      x-transition:enter="transition-all ease-in-out duration-500"
-      x-transition:enter-start="w-16"
-      x-transition:enter-end="w-72"
-      x-transition:leave="transition-all ease-in-out duration-500"
-      x-transition:leave-start="w-72"
-      x-transition:leave-end="w-16"
-      x-data="tabManager()">
-      <div x-data="sideBar()">
-        <template x-for="button in sideBarButtons" :key="button.id">
-          <button
-            @click="tabButtonClicked(button.name)"
-            x-text="button.name"
-            :class="{ 'tab-button-active': tabContentActive('clients') }"
-            class="tab-button flex items-center">
-            <div x-show="Alpine.tabStore.sideBar" class="flex items-center p-2">
-              <object data-feather="users" class="mr-1.5 w-4"></object>
-              <span>Clients</span>
-            </div>
-            <div x-show="!Alpine.tabStore.sideBar" class="p-2">
-              <object data-feather="users"></object>
-            </div>
-          </button>
-        </template>
-        <!-- MARK:ROW-3-DarkMode -->
-        <div class="grid h-full grid-cols-1 grid-rows-2 place-items-center justify-center">
-          <!-- DARKMODE -->
-          <button @click="toggleTheme()" title="Dark mode toggle" class="tab-button p-2">
-            <object x-show="Alpine.tabStore.mode === 'light'" data-feather="moon"></object>
-            <object x-show="mode === 'dark'" data-feather="sun"></object>
-          </button>
-          <!-- SIDEBAR EXPANDED-->
-          <button :title="sideBar ? 'Close Sidebar' : 'Open Sidebar'" @click="sideBarOpen()" class="tab-button p-2">
-            <object data-feather="sidebar"></object>
-          </button>
-        </div>
-      </div>
-      <div x-data="mainView()"></div>
+    <!-- Manager -->
+    <div x-data="tabManager()">
+      <!-- SideBar -->
+      <nav>
+        <button @click="activeTab = 'Clients'" x-text="'Clients'" class="tab-button flex items-center">Clients</button>
+        <button @click="activeTab = 'Invoicing'" x-text="'Invoicing'" class="tab-button flex items-center">
+          Clients
+        </button>
+        <button @click="activeTab = 'Editor'" x-text="'Editor'" class="tab-button flex items-center">Editor</button>
+
+        <button @click="toggler(sideBarExpanded = !sideBarExpanded)">Expand</button>
+        <button @click="toggler(darkThemeOn = !darkThemeOn)">Theme</button>
+        <!-- This is some work to be merged -->
+      </nav>
+      <!-- Content -->
+      <div
+        class="w-full flex flex-col overflow-auto bg-vlp3 p-6 will-change-auto dark:bg-vdp2"
+        x-html="activeTabHtml"></div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
