@@ -1,0 +1,17 @@
+name: CI/CD_demo_with_matt
+
+on:
+  push:
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Print a messages
+      - name: Say Hello
+        run: echo "Hello, World! Enjoy 2025"
+
+      # Step 2: Print the current date and time
+      - name: Show the date
+        run: date
